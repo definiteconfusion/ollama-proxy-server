@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 import os
 from supabase import create_client, Client
-import uvicorn
 
 
 class Supabase:
@@ -67,5 +66,3 @@ def api(request: Request):
     except requests.exceptions.JSONDecodeError:
         return {"error": "Invalid JSON response from remote server", "text": response.text}
     return out
-
-uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
