@@ -29,7 +29,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-def auth_check(request: Request):
+def auth_check(request: Request, permission_level: int = 0):
     HEADERS = request.headers
     name = HEADERS.get("name", None)
     real_key = HEADERS.get("key", None)
@@ -41,6 +41,9 @@ def auth_check(request: Request):
     if not theo_key:
         return {"error": "No key found for the provided name."}
     if str(theo_key) != str(real_key):
+        return False
+    perm_level = results["data"][0]["level"] if results["data"] else 0
+    if perm_level < permission_level:
         return False
     return True
 
