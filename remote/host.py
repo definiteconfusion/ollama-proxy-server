@@ -29,7 +29,7 @@ def get_api(request: Request):
     model_name = HEADERS["model-name"]
     try:
         output = subprocess.run(
-        ["./remote/execute", "curl", "http://localhost:11434/api/generate",  "-d",  f'{{ "model": "{model_name}", "prompt": "{model_prompt}", "stream": false }}'],
+        ["curl", "http://localhost:11434/api/generate",  "-d",  f'{{ "model": "{model_name}", "prompt": "{model_prompt}", "stream": false }}'],
         capture_output=True, text=True
         )
         print("MODEL NAME:", model_name)
