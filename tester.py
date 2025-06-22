@@ -6,7 +6,11 @@ headers = {
     "name": "Jake Rase",
     "key": "0000000001"
 }
-out = requests.get('https://ollama-proxy-server-five.vercel.app/api', headers=headers).json() 
+# out = requests.get('https://ollama-proxy-server-five.vercel.app/api', headers=headers).json() 
+out = requests.get('http://0.0.0.0:8000/api', headers=headers).json() 
 with open('test.json', 'w') as f:
     f.write(str(out))
-print(out["response"])
+try:
+    print(out["response"])
+except Exception as e:
+    print(out)

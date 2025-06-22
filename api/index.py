@@ -4,7 +4,6 @@ import requests
 import os
 from supabase import create_client, Client
 
-
 class Supabase:
     def __init__(self, table):
         url: str = "https://wvszrkaovwiaiboyohya.supabase.co"
@@ -18,6 +17,8 @@ class Supabase:
         response = self.base.from_(self.table).select().text_search('name', data["name"]).execute()
         return response.model_dump()
 
+
+db = Supabase("users")
 app = FastAPI()
 
 # Add CORS middleware
@@ -35,11 +36,12 @@ def auth_check(request: Request, permission_level: int = 0):
     real_key = HEADERS.get("key", None)
     if not name or not real_key:
         return False
-    response = Supabase("users").base.from_("users").select("key").eq("name", name).execute()
+    response = db.base.from_("users").select("*").eq("name", name).execute()
     results = response.model_dump()
+    print("AUTH RESULTS:", results)
     theo_key = results["data"][0]["key"] if results["data"] else None
     if not theo_key:
-        return {"error": "No key found for the provided name."}
+        return False
     if str(theo_key) != str(real_key):
         return False
     perm_level = results["data"][0]["level"] if results["data"] else 0
@@ -59,7 +61,7 @@ def api(request: Request):
     print("API endpoint called")
     HEADERS = request.headers
     if not auth_check(request):
-        return {"error": "Authentication failed. Invalid name or key."}
+        return {"error": "Authentication failed. Invalid name, key, or permissions."}
     remote_host = os.getenv("REMOTE_HOST", "70.22.254.47")
     remote_port = os.getenv("REMOTE_PORT", "8000")
     response = requests.get(f'http://{remote_host}:{remote_port}/api', headers=HEADERS)
