@@ -57,8 +57,8 @@ def api(request: Request):
     HEADERS = request.headers
     if not auth_check(request):
         return {"error": "Authentication failed. Invalid name or key."}
-    remote_host = os.getenv("REMOTE_HOST", "0.0.0.0")
-    remote_port = os.getenv("REMOTE_PORT", "3000")
+    remote_host = os.getenv("REMOTE_HOST", "70.22.254.47")
+    remote_port = os.getenv("REMOTE_PORT", "8000")
     response = requests.get(f'http://{remote_host}:{remote_port}/api', headers=HEADERS)
     response.raise_for_status()  # Raises an HTTPError for bad responses
     try:
