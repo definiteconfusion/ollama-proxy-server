@@ -20,8 +20,8 @@ jobs:
 
       - name: Keep Supabase alive
         env:
-          SUPABASE_URL: https://wvszrkaovwiaiboyohya.supabase.co
-          SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2c3pya2FvdndpYWlib3lvaHlhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDUxMzMyMiwiZXhwIjoyMDY2MDg5MzIyfQ.p-dk-85jbg1kJv9r7iCHO3Ir_X5Jf7M3juR8tiUPxeY
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           python -c "
           import os
