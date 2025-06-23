@@ -1,2 +1,2 @@
 source .venv/bin/activate
-python3 ./remote/host.py
+nohup python3 ./remote/host.py > server.log 2>&1 &
