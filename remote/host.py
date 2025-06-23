@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-
 import uvicorn
 import subprocess
 import json
@@ -21,6 +20,7 @@ def read_root():
     Returns a simple message indicating the root endpoint is reached.
     """
     return {"message": "Welcome to the FastAPI application!"}
+
 
 @App.get("/api")
 def get_api(request: Request):
