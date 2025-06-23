@@ -3,7 +3,7 @@ name: Keep Supabase DB Alive
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # every 15 minutes
+    - cron: '*/720 * * * *'  # every 12 hours
   workflow_dispatch:
 
 jobs:
