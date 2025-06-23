@@ -29,7 +29,7 @@ def get_api(request: Request):
     model_name = HEADERS["model-name"]
     try:
         output = subprocess.run(
-        ["./remote/execute", "curl", "http://localhost:11434/api/generate",  "-d",  f'{{ "model": "{model_name}", "prompt": "{model_prompt}", "stream": false }}'],
+        ["curl", "http://localhost:11434/api/generate",  "-d",  f'{{ "model": "{model_name}", "prompt": "{model_prompt}", "stream": false }}'],
         capture_output=True, text=True
         )
         print("MODEL NAME:", model_name)
@@ -39,4 +39,4 @@ def get_api(request: Request):
     return json.loads(output.stdout)
 
 if __name__ == "__main__":
-    uvicorn.run(App, host="127.0.0.1", port=8000)
+    uvicorn.run(App, host="192.168.1.153", port=8000)
