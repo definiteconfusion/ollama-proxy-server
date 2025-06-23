@@ -6,8 +6,8 @@ from supabase import create_client, Client
 
 class Supabase:
     def __init__(self, table):
-        url: str = "https://wvszrkaovwiaiboyohya.supabase.co"
-        key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2c3pya2FvdndpYWlib3lvaHlhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDUxMzMyMiwiZXhwIjoyMDY2MDg5MzIyfQ.p-dk-85jbg1kJv9r7iCHO3Ir_X5Jf7M3juR8tiUPxeY"
+        url: str = os.environ.get("SUPABASE_URL", "None")
+        key: str = os.environ.get("SUPABASE_KEY", "None")
         supabase: Client = create_client(url, key)
         self.table = table
         self.base = supabase
